@@ -51,7 +51,7 @@ resource "aws_elasticsearch_domain" "es_domain" {
     for_each = local.encrypt_at_rest
     content {
       enabled    = lookup(encrypt_at_rest.value, "enabled")
-      kms_key_id = lookup(encrypt_at_rest.value, "kms_key_id")
+      kms_key_id = lookup(encrypt_at_rest.value, "enabled") == "true" ? lookup(encrypt_at_rest.value, "kms_key_id") : ""
     }
   }
 
